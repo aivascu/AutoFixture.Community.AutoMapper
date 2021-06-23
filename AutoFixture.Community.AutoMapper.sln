@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFixture.Community.AutoMapper", "src\AutoFixture.Community.AutoMapper\AutoFixture.Community.AutoMapper.csproj", "{75A6146E-54CD-4952-9502-D32FCF4C5575}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFixture.Community.AutoMapper.Tests", "tests\AutoFixture.Community.AutoMapper.Tests\AutoFixture.Community.AutoMapper.Tests.csproj", "{821E5F93-5AC8-4B72-B218-06031E5324BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{75A6146E-54CD-4952-9502-D32FCF4C5575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75A6146E-54CD-4952-9502-D32FCF4C5575}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75A6146E-54CD-4952-9502-D32FCF4C5575}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75A6146E-54CD-4952-9502-D32FCF4C5575}.Release|Any CPU.Build.0 = Release|Any CPU
+		{821E5F93-5AC8-4B72-B218-06031E5324BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{821E5F93-5AC8-4B72-B218-06031E5324BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{821E5F93-5AC8-4B72-B218-06031E5324BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{821E5F93-5AC8-4B72-B218-06031E5324BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
