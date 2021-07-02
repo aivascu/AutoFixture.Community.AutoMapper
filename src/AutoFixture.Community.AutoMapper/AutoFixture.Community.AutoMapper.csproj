@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AutoFixture" Version="4.17.0" />
-      <PackageReference Include="AutoMapper" Version="10.1.1" />
+      <PackageReference Include="AutoFixture" Version="4.5.0" />
+      <PackageReference Include="AutoMapper" Version="10.0.0" />
     </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@ namespace AutoFixture.Community.AutoMapper.Tests.TestTypes
     {
         public FullName Convert(FullNameDto source, FullName destination, ResolutionContext context)
         {
-            return new(source.FirstName, source.LastName);
+            return new FullName(source.FirstName, source.LastName);
         }
     }
 }

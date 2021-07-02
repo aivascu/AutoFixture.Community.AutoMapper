@@ -4,12 +4,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFixture.Community.AutoM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFixture.Community.AutoMapper.Tests", "tests\AutoFixture.Community.AutoMapper.Tests\AutoFixture.Community.AutoMapper.Tests.csproj", "{821E5F93-5AC8-4B72-B218-06031E5324BC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{98C85C66-E6E3-4728-BBAE-E74C5D481AD1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{98C85C66-E6E3-4728-BBAE-E74C5D481AD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98C85C66-E6E3-4728-BBAE-E74C5D481AD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75A6146E-54CD-4952-9502-D32FCF4C5575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{75A6146E-54CD-4952-9502-D32FCF4C5575}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75A6146E-54CD-4952-9502-D32FCF4C5575}.Release|Any CPU.ActiveCfg = Release|Any CPU
