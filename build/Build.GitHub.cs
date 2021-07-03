@@ -12,7 +12,7 @@ using Nuke.Common.CI.GitHubActions;
 [GitHubActions(
     "release",
     GitHubActionsImage.WindowsLatest,
-    OnPushBranches = new[] { MasterBranch },
+    OnPushTags = new[] { "v0.*", "v1.*" },
     PublishArtifacts = true,
     InvokedTargets = new[] { nameof(Cover), nameof(Publish) },
     ImportGitHubTokenAs = nameof(GitHubToken),
