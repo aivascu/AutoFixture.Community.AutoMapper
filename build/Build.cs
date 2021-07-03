@@ -13,7 +13,6 @@ using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.ReportGenerator;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
-using static Nuke.Common.IO.CompressionTasks;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using static Nuke.Common.Tools.ReportGenerator.ReportGeneratorTasks;
@@ -24,8 +23,6 @@ partial class Build : NukeBuild
 {
     const string MasterBranch = "master";
     const string DevelopBranch = "develop";
-    const string ReleaseBranchPrefix = "release";
-    const string HotfixBranchPrefix = "hotfix";
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
@@ -34,9 +31,7 @@ partial class Build : NukeBuild
     [GitVersion(Framework = "netcoreapp3.0")] readonly GitVersion GitVersion;
 
     [Parameter, Secret] readonly string NuGetApiKey;
-
-    [Parameter]
-    readonly string NuGetSource = "https://api.nuget.org/v3/index.json";
+    [Parameter] readonly string NuGetSource = "https://api.nuget.org/v3/index.json";
 
     [Solution] readonly Solution Solution;
 
@@ -83,8 +78,8 @@ partial class Build : NukeBuild
 
     Target Test => _ => _
         .DependsOn(Compile)
-        .Produces(TestResultsDirectory / "*.zip")
-        .Produces(CoverageDirectory / "*.zip")
+        .Produces(TestResultsDirectory / "*.trx")
+        .Produces(CoverageDirectory / "*.xml")
         .Executes(() =>
         {
             DotNetTest(s => s
@@ -113,15 +108,12 @@ partial class Build : NukeBuild
                 Debug.Assert(
                     CoverageDirectory.GlobFiles("*.xml").Count > 0,
                     "No xml coverage files were generated.");
-
-            CompressZip(TestResultsDirectory, TestResultsDirectory / "TestResults.zip");
-            CompressZip(CoverageDirectory, CoverageDirectory / "CoverageResults.zip");
         });
 
     Target Cover => _ => _
         .DependsOn(Test)
         .Consumes(Test)
-        .Produces(ReportsDirectory / "*.zip")
+        .Produces(ReportsDirectory / "*.html")
         .Executes(() =>
         {
             ReportGenerator(_ => _
@@ -129,8 +121,6 @@ partial class Build : NukeBuild
                 .SetReports(CoverageDirectory / "*.xml")
                 .SetTargetDirectory(ReportsDirectory)
                 .SetReportTypes("lcov", ReportTypes.HtmlInline));
-
-            CompressZip(ReportsDirectory, ReportsDirectory / "CoverageReport.zip");
         });
 
     Target Pack => _ => _
