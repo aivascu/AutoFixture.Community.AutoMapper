@@ -1,10 +1,10 @@
 # AutoFixture.Community.AutoMapper
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/aivascu/AutoFixture.Community.AutoMapper/release?logo=github&style=flat-square)
-[![GitHub](https://img.shields.io/github/license/aivascu/AutoFixture.Community.AutoMapper?logo=MIT&style=flat-square)](https://licenses.nuget.org/MIT)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/aivascu/AutoFixture.Community.AutoMapper/release?logo=github&style=flat-square)](https://github.com/aivascu/AutoFixture.Community.AutoMapper/actions/workflows/release.yml)
+[![GitHub](https://img.shields.io/github/license/aivascu/AutoFixture.Community.AutoMapper?style=flat-square)](https://licenses.nuget.org/MIT)
 [![Nuget](https://img.shields.io/nuget/v/AutoFixture.Community.AutoMapper?logo=nuget&style=flat-square)](https://www.nuget.org/packages/AutoFixture.Community.AutoMapper/)
 
-AutoFixture.Community.AutoMapper is a glue library that helps with integration of AutoFixture and AutoMapper.
+`AutoFixture.Community.AutoMapper` is a glue library that helps with integration of AutoFixture and AutoMapper.
 
 ## Features
 
