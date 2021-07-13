@@ -4,13 +4,13 @@ namespace AutoFixture.Community.AutoMapper.Tests.TestTypes
 {
     public class Order
     {
-        public Guid ProductId { get; }
-        public Dollars Amount { get; }
-
-        public Order(Guid productId, Dollars amount)
+        public Order(Guid productId, Money amount)
         {
-            ProductId = productId;
-            Amount = amount;
+            this.ProductId = productId;
+            this.Amount = amount;
         }
+
+        public Guid ProductId { get; }
+        public Money Amount { get; }
     }
 }

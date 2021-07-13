@@ -6,11 +6,11 @@ namespace AutoFixture.Community.AutoMapper.Tests.TestTypes
     {
         public DomainModelProfile()
         {
-            CreateMap<FullNameDto, FullName>()
+            this.CreateMap<FullNameDto, FullName>()
                 .ConvertUsing<FullNameTypeConverter>();
 
-            CreateMap<Product, ProductDto>()
-                .ForMember(x => x.Price, o => o.ConvertUsing<CurrencyFormatter, Dollars>());
+            this.CreateMap<Product, ProductDto>()
+                .ForMember(x => x.Price, o => o.ConvertUsing<CurrencyFormatter, Money>());
         }
     }
 }

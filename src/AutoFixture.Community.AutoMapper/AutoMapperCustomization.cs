@@ -26,7 +26,7 @@ namespace AutoFixture.Community.AutoMapper
             SpecimenBuilderNodeFactory
                 .CreateComposer<MapperConfigurationExpression>()
                 .OmitAutoProperties()
-                .Do(configure)
+                .Do(this.configure)
                 .ToCustomization()
                 .Customize(fixture);
         }
