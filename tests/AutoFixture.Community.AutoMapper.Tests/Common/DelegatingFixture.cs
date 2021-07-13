@@ -7,10 +7,6 @@ namespace AutoFixture.Community.AutoMapper.Tests.Common
 {
     public class DelegatingFixture : IFixture
     {
-        private readonly IList<ISpecimenBuilder> customizations = new List<ISpecimenBuilder>();
-        private readonly IList<ISpecimenBuilderTransformation> behaviors = new List<ISpecimenBuilderTransformation>();
-        private readonly IList<ISpecimenBuilder> residueCollectors = new List<ISpecimenBuilder>();
-
         public object Create(object request, ISpecimenContext context)
         {
             throw new NotImplementedException();
@@ -32,9 +28,11 @@ namespace AutoFixture.Community.AutoMapper.Tests.Common
             throw new NotImplementedException();
         }
 
-        public IList<ISpecimenBuilder> Customizations => customizations;
-        public IList<ISpecimenBuilderTransformation> Behaviors => behaviors;
-        public IList<ISpecimenBuilder> ResidueCollectors => residueCollectors;
+        public IList<ISpecimenBuilder> Customizations { get; } = new List<ISpecimenBuilder>();
+
+        public IList<ISpecimenBuilderTransformation> Behaviors { get; } = new List<ISpecimenBuilderTransformation>();
+
+        public IList<ISpecimenBuilder> ResidueCollectors { get; } = new List<ISpecimenBuilder>();
 
         public bool OmitAutoProperties { get; set; }
         public int RepeatCount { get; set; }

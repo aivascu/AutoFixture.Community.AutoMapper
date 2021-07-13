@@ -6,7 +6,7 @@ namespace AutoFixture.Community.AutoMapper.Tests.TestTypes
     {
         public AnemicModelProfile()
         {
-            CreateMap<AnemicModel, AnemicModelDto>()
+            this.CreateMap<AnemicModel, AnemicModelDto>()
                 .ReverseMap();
         }
     }

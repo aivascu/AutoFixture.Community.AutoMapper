@@ -2,13 +2,13 @@ namespace AutoFixture.Community.AutoMapper.Tests.TestTypes
 {
     public class Product
     {
-        public Product(string name, Dollars price)
+        public Product(string name, Money price)
         {
-            Name = name;
-            Price = price;
+            this.Name = name;
+            this.Price = price;
         }
 
         public string Name { get; }
-        public Dollars Price { get; }
+        public Money Price { get; }
     }
 }

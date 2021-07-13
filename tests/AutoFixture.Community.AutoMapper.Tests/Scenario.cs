@@ -63,7 +63,7 @@ namespace AutoFixture.Community.AutoMapper.Tests
 
             actual.AsSource().OfLikeness<FullNameDto>().ShouldEqual(model);
         }
-        
+
         [Fact]
         public void CanMapModelsUsingValueConverters()
         {
