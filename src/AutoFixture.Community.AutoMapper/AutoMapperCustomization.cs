@@ -16,19 +16,13 @@ namespace AutoFixture.Community.AutoMapper
 
         public void Customize(IFixture fixture)
         {
-            fixture.Customizations.Add(
-                new FixedTypeBuilder<Func<Type, object>>(
-                    t => new SpecimenContext(fixture).Resolve(t)));
+            fixture.Customizations.Add(new FixedTypeBuilder<Func<Type, object>>(
+                t => new SpecimenContext(fixture).Resolve(t)));
             fixture.Customizations.Add(new ImplementationRelay<IMapper, Mapper>());
             fixture.Customizations.Add(new ImplementationRelay<IConfigurationProvider, MapperConfiguration>());
-            new ConstructorCustomization(typeof(Mapper), new GreedyConstructorQuery())
-                .Customize(fixture);
-            SpecimenBuilderNodeFactory
-                .CreateComposer<MapperConfigurationExpression>()
-                .OmitAutoProperties()
-                .Do(this.configure)
-                .ToCustomization()
-                .Customize(fixture);
+            fixture.Customize(new ConstructorCustomization(typeof(Mapper), new GreedyConstructorQuery()));
+            fixture.Customize(SpecimenBuilderNodeFactory.CreateComposer<MapperConfigurationExpression>()
+                .OmitAutoProperties().Do(this.configure).ToCustomization());
         }
     }
 }
