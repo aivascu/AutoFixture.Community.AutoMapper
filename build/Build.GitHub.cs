@@ -6,6 +6,7 @@ using Nuke.Common.CI.GitHubActions;
     "continuous",
     GitHubActionsImage.WindowsLatest,
     OnPullRequestBranches = new[] { MasterBranch, DevelopBranch },
+    OnPushBranches = new [] { MasterBranch },
     PublishArtifacts = false,
     InvokedTargets = new[] { nameof(Cover), nameof(Pack) },
     ImportGitHubTokenAs = nameof(GitHubToken))]
