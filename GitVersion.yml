@@ -1,6 +1,14 @@
-assembly-versioning-scheme: MajorMinorPatch
 mode: ContinuousDelivery
-branches: {}
+assembly-versioning-scheme: MajorMinorPatch
+tag-prefix: '[vV]'
+branches:
+  master:
+    tag: ''
+    increment: Patch
+  release:
+    source-branches: ['master']
+    prevent-increment-of-merged-branch-version: true
+    tag: 'preview'
 ignore:
   sha: []
 merge-message-formats: {}
