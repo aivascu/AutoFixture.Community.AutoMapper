@@ -10,11 +10,4 @@
     <PackageReference Include="AutoMapper" Version="8.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\..\AutoFixtureLogo200x200.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
-
 </Project>
