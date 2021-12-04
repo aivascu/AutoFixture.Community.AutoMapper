@@ -1,10 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFixture.Community.AutoMapper", "src\AutoFixture.Community.AutoMapper\AutoFixture.Community.AutoMapper.csproj", "{75A6146E-54CD-4952-9502-D32FCF4C5575}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoMapper", "src\AutoFixture.Community.AutoMapper\AutoFixture.Community.AutoMapper.csproj", "{75A6146E-54CD-4952-9502-D32FCF4C5575}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFixture.Community.AutoMapper.Tests", "tests\AutoFixture.Community.AutoMapper.Tests\AutoFixture.Community.AutoMapper.Tests.csproj", "{821E5F93-5AC8-4B72-B218-06031E5324BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoMapper.Tests", "tests\AutoFixture.Community.AutoMapper.Tests\AutoFixture.Community.AutoMapper.Tests.csproj", "{821E5F93-5AC8-4B72-B218-06031E5324BC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{98C85C66-E6E3-4728-BBAE-E74C5D481AD1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C8389F20-83DE-4160-8447-9DE9418D6E96}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		CHANGELOG.md = CHANGELOG.md
+		GitVersion.yml = GitVersion.yml
+		LICENSE.md = LICENSE.md
+		readme.md = readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,8 +26,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{98C85C66-E6E3-4728-BBAE-E74C5D481AD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{98C85C66-E6E3-4728-BBAE-E74C5D481AD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75A6146E-54CD-4952-9502-D32FCF4C5575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{75A6146E-54CD-4952-9502-D32FCF4C5575}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75A6146E-54CD-4952-9502-D32FCF4C5575}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -22,5 +34,13 @@ Global
 		{821E5F93-5AC8-4B72-B218-06031E5324BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{821E5F93-5AC8-4B72-B218-06031E5324BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{821E5F93-5AC8-4B72-B218-06031E5324BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98C85C66-E6E3-4728-BBAE-E74C5D481AD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98C85C66-E6E3-4728-BBAE-E74C5D481AD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F55E1A48-F5F2-401F-9BEF-F15527CE66DD}
 	EndGlobalSection
 EndGlobal

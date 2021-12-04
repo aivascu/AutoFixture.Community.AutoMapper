@@ -1,0 +1,26 @@
+<Project>
+  <PropertyGroup>
+    <PackageProjectUrl>https://github.com/aivascu/AutoFixture.Community.AutoMapper</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/aivascu/AutoFixture.Community.AutoMapper.git</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>AutoFixture;AutoMapper;Unit Testing;Tests</PackageTags>
+    <Description>A library that integrates AutoFixture with AutoMapper.</Description>
+    <PackageIcon>AutoFixtureLogo200x200.png</PackageIcon>
+    <RepositoryType>git</RepositoryType>
+    <Deterministic>true</Deterministic>
+    <Authors>Andrei Ivascu</Authors>
+    <Copyright>Andrei Ivascu</Copyright>
+
+    <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+    <!-- Embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- <SourceRoot Include="$(MSBuildThisFileDirectory)/"/> -->
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>
