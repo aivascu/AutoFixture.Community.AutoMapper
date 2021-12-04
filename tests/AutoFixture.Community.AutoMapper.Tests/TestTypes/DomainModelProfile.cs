@@ -11,6 +11,9 @@ namespace AutoFixture.Community.AutoMapper.Tests.TestTypes
 
             this.CreateMap<Product, ProductDto>()
                 .ForMember(x => x.Price, o => o.ConvertUsing<CurrencyFormatter, Money>());
+
+            this.CreateMap<OrderDto, Order>()
+                .ConvertUsing<OrderTypeConverter>();
         }
     }
 }

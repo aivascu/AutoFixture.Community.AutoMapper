@@ -38,6 +38,8 @@ public void MapsModels(Customer customer, Fixture fixture)
         .Create();
 
     fixture.Customize(new AutoMapperCustomization(x => x
+        /* x is IMapperConfigurationExpression,
+            so any AutoMapper configuration is valid here */
         .AddMaps(typeof(ModelsProfile))));
 
     var sut = fixture.Create<IMapper>();
@@ -48,6 +50,67 @@ public void MapsModels(Customer customer, Fixture fixture)
     // Assert
     actual.AsSource().OfLikeness<CustomerDto>()
         .ShouldEqual(expected);
+}
+```
+
+### Resolve services from AutoFixture
+
+The following example shows that the library can act as the service factory for AutoMapper.
+This means you can easily manipulate services injected into type and value converters.
+
+```cs
+public class OrderTypeConverter : ITypeConverter<OrderDto, Order>
+{
+    private readonly ITime time;
+
+    public OrderTypeConverter(ITime time)
+    {
+        this.time = time;
+    }
+
+    public Order Convert(OrderDto source, Order destination, ResolutionContext context)
+    {
+        return new Order(source.ProductId, source.Amount, this.time.Now);
+    }
+}
+
+public class CommerceModelProfile : Profile
+{
+    public CommereceModelProfile()
+    {
+        this.CreateMap<OrderDto, Order>()
+            .ConvertUsing<OrderTypeConverter>();
+    }
+}
+
+public class CommerceDataAttribute : AutoDataAttribute
+{
+    public CommerceDataAttribute()
+        : base(() => new Fixture()
+            .Customize(
+                new CompositeCustomization(
+                    // This configures ITime to be resolved as a mock with a value in ITime.Now
+                    new AutoMoqCustomization { ConfigureMembers = true },
+                    new AutoMapperCustomization(x => x
+                        .AddProfile<CommerceModelProfile>())))
+                )))
+    {}
+}
+
+[Theory, CommerceData]
+public void ProvidesServices(
+    /* The value to be injected into ITime.Now */
+    [Frozen] DateTime now,
+    IMapper mapper, OrderDto model)
+{
+    // Arrange
+    var expected = new Order(model.ProductId, model.Amount, now);
+
+    // Act
+    var actual = mapper.Map<Order>(model);
+
+    // Assert
+    actual.AsSource().OfLikeness<Order>().ShouldEqual(expected);
 }
 ```
 

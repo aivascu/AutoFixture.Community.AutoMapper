@@ -77,5 +77,22 @@ namespace AutoFixture.Community.AutoMapper.Tests
 
             actual.AsSource().OfLikeness<FullNameDto>().ShouldEqual(model);
         }
+
+        [Fact]
+        public void ServiceFactoryResolvesServiceFromAutoFixture()
+        {
+            var fixture = new Fixture()
+                .Customize(new AutoMapperCustomization(x => x
+                    .AddProfile<DomainModelProfile>()));
+            var time = fixture.Freeze<ITime>(c => c
+                .FromFactory<DelegatingTimeProvider>(x => x));
+            var model = fixture.Create<OrderDto>();
+            var expected = new Order(model.ProductId, model.Amount, time.Now);
+            var mapper = fixture.Create<IMapper>();
+
+            var actual = mapper.Map<Order>(model);
+
+            actual.AsSource().OfLikeness<Order>().ShouldEqual(expected);
+        }
     }
 }
