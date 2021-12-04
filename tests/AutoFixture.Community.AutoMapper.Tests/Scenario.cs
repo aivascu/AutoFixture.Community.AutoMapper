@@ -41,7 +41,7 @@ namespace AutoFixture.Community.AutoMapper.Tests
         {
             var fixture = new Fixture()
                 .Customize(new AutoMapperCustomization(x => x
-                    .AddMaps(typeof(AnemicModelProfile))));
+                    .AddProfile<AnemicModelProfile>()));
             var mapper = fixture.Create<IMapper>();
             var model = fixture.Create<AnemicModelDto>();
 
@@ -55,7 +55,7 @@ namespace AutoFixture.Community.AutoMapper.Tests
         {
             var fixture = new Fixture()
                 .Customize(new AutoMapperCustomization(x => x
-                    .AddMaps(typeof(DomainModelProfile))));
+                    .AddProfile<DomainModelProfile>()));
             var mapper = fixture.Create<IMapper>();
             var model = fixture.Create<FullNameDto>();
 
@@ -69,7 +69,7 @@ namespace AutoFixture.Community.AutoMapper.Tests
         {
             var fixture = new Fixture()
                 .Customize(new AutoMapperCustomization(x => x
-                    .AddMaps(typeof(DomainModelProfile))));
+                    .AddProfile<DomainModelProfile>()));
             var mapper = fixture.Create<IMapper>();
             var model = fixture.Create<FullNameDto>();
 
