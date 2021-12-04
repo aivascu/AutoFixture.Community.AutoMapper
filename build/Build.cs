@@ -30,6 +30,8 @@ partial class Build : NukeBuild
     [GitRepository] readonly GitRepository GitRepository;
     [GitVersion(Framework = "netcoreapp3.0")] readonly GitVersion GitVersion;
 
+    [Parameter] readonly bool Deterministic;
+
     [Parameter, Secret] readonly string NuGetApiKey;
     [Parameter] readonly string NuGetSource = "https://api.nuget.org/v3/index.json";
 
@@ -73,7 +75,9 @@ partial class Build : NukeBuild
                 .SetAssemblyVersion(GitVersion.AssemblySemVer)
                 .SetFileVersion(GitVersion.AssemblySemFileVer)
                 .SetInformationalVersion(GitVersion.InformationalVersion)
-                .EnableNoRestore());
+                .SetNoRestore(FinishedTargets.Contains(Restore))
+                .SetContinuousIntegrationBuild(IsServerBuild || Deterministic)
+                .SetDeterministic(IsServerBuild || Deterministic));
         });
 
     Target Test => _ => _
@@ -84,7 +88,7 @@ partial class Build : NukeBuild
         {
             DotNetTest(s => s
                 .SetConfiguration(Configuration)
-                .SetNoBuild(InvokedTargets.Contains(Compile))
+                .SetNoBuild(FinishedTargets.Contains(Compile))
                 .ResetVerbosity()
                 .SetResultsDirectory(TestResultsDirectory)
                 .SetProcessArgumentConfigurator(a => a
@@ -105,9 +109,11 @@ partial class Build : NukeBuild
                 "No trx files were generated.");
 
             if (InvokedTargets.Contains(Cover))
+            {
                 Debug.Assert(
                     CoverageDirectory.GlobFiles("*.xml").Count > 0,
                     "No xml coverage files were generated.");
+            }
         });
 
     Target Cover => _ => _
@@ -135,7 +141,9 @@ partial class Build : NukeBuild
                 .SetConfiguration(Configuration)
                 .SetOutputDirectory(PackagesDirectory)
                 .SetSymbolPackageFormat(DotNetSymbolPackageFormat.snupkg)
-                .EnableIncludeSymbols()
+                .SetNoBuild(FinishedTargets.Contains(Compile))
+                .SetIncludeSymbols(IsServerBuild || Deterministic)
+                .SetDeterministic(IsServerBuild || Deterministic)
                 .SetVersion(GitVersion.NuGetVersion)
                 .SetAssemblyVersion(GitVersion.AssemblySemVer)
                 .SetFileVersion(GitVersion.AssemblySemFileVer)
