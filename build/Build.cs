@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using Nuke.Common;
 using Nuke.Common.CI;
 using Nuke.Common.Execution;
@@ -87,31 +90,54 @@ partial class Build : NukeBuild
         .Executes(() =>
         {
             DotNetTest(s => s
+                .SetFramework("net461")
                 .SetConfiguration(Configuration)
                 .SetNoBuild(FinishedTargets.Contains(Compile))
                 .ResetVerbosity()
+                .SetLogger("trx")
+                .SetUseSourceLink(IsServerBuild)
                 .SetResultsDirectory(TestResultsDirectory)
                 .SetProcessArgumentConfigurator(a => a
                     .Add("-- RunConfiguration.DisableAppDomain=true")
                     .Add("-- RunConfiguration.NoAutoReporters=true"))
                 .When(InvokedTargets.Contains(Cover), _ => _
                     .EnableCollectCoverage()
-                    .SetCoverletOutputFormat(CoverletOutputFormat.cobertura)
-                    .When(IsServerBuild, _ => _.EnableUseSourceLink()))
+                    .SetCoverletOutputFormat(CoverletOutputFormat.cobertura))
                 .CombineWith(TestProjects, (_, v) => _
                     .SetProjectFile(v)
-                    .SetLogger("trx")
                     .When(InvokedTargets.Contains(Cover), _ => _
                         .SetCoverletOutput(CoverageDirectory / $"{v.Name}.xml"))));
 
+            DotNetTest(s => s
+                .SetFramework("net5.0")
+                .SetConfiguration(Configuration)
+                .SetNoBuild(FinishedTargets.Contains(Compile))
+                .ResetVerbosity()
+                .SetResultsDirectory(TestResultsDirectory)
+                .SetLogger("trx")
+                .SetUseSourceLink(IsServerBuild)
+                .SetProcessArgumentConfigurator(a => a
+                    .Add("-- RunConfiguration.DisableAppDomain=true")
+                    .Add("-- RunConfiguration.NoAutoReporters=true"))
+                .When(InvokedTargets.Contains(Cover), _ => _
+                    .SetDataCollector("XPlat Code Coverage"))
+                .CombineWith(TestProjects, (_, p) => _
+                    .SetProjectFile(p)
+                    .When(InvokedTargets.Contains(Cover), _ => _
+                        .SetResultsDirectory(TestResultsDirectory / $"{p.Name}.{_.Framework}"))));
+
             Debug.Assert(
-                TestResultsDirectory.GlobFiles("*.trx").Count > 0,
+                TestResultsDirectory.GlobFiles("**\\*.trx").Count > 0,
                 "No trx files were generated.");
+
+            TestResultsDirectory.GlobFiles("**\\*.xml")
+                .Where(x => Guid.TryParse(x.GetParentDirectoryName(), out var _))
+                .ForEach(x => File.Copy(x, CoverageDirectory / $"{x.Parent.GetParentDirectoryName()}.xml", true));
 
             if (InvokedTargets.Contains(Cover))
             {
                 Debug.Assert(
-                    CoverageDirectory.GlobFiles("*.xml").Count > 0,
+                    CoverageDirectory.GlobFiles("**\\*.xml").Count > 0,
                     "No xml coverage files were generated.");
             }
         });
