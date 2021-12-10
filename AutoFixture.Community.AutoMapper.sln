@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31911.196
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoMapper", "src\AutoFixture.Community.AutoMapper\AutoFixture.Community.AutoMapper.csproj", "{75A6146E-54CD-4952-9502-D32FCF4C5575}"
 EndProject
@@ -23,6 +23,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoMapper8.Tests", "tests\AutoFixture.Community.AutoMapper8.Tests\AutoFixture.Community.AutoMapper8.Tests.csproj", "{8AF7A561-C7A4-4871-84AE-C41F86ABA0A8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoMapper9.Tests", "tests\AutoFixture.Community.AutoMapper9.Tests\AutoFixture.Community.AutoMapper9.Tests.csproj", "{3C33293F-F6C1-4794-B13E-C991A46B3D9E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1F01EA94-AA4F-4D1E-B9E7-47D0061430AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{821E5F93-5AC8-4B72-B218-06031E5324BC} = {1F01EA94-AA4F-4D1E-B9E7-47D0061430AC}
+		{8AF7A561-C7A4-4871-84AE-C41F86ABA0A8} = {1F01EA94-AA4F-4D1E-B9E7-47D0061430AC}
+		{3C33293F-F6C1-4794-B13E-C991A46B3D9E} = {1F01EA94-AA4F-4D1E-B9E7-47D0061430AC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F55E1A48-F5F2-401F-9BEF-F15527CE66DD}
