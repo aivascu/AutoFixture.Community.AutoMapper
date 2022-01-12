@@ -41,7 +41,6 @@ partial class Build : NukeBuild
     AbsolutePath TestsDirectory => RootDirectory / "tests";
     AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
     AbsolutePath TestResultsDirectory => ArtifactsDirectory / "testresults";
-    AbsolutePath CoverageDirectory => ArtifactsDirectory / "coverage";
     AbsolutePath ReportsDirectory => ArtifactsDirectory / "reports";
     AbsolutePath PackagesDirectory => ArtifactsDirectory / "packages";
 
@@ -86,7 +85,6 @@ partial class Build : NukeBuild
     Target Test => _ => _
         .DependsOn(Compile)
         .Produces(TestResultsDirectory / "*.trx")
-        .Produces(CoverageDirectory / "*.xml")
         .Executes(() =>
         {
             DotNetTest(s => s
@@ -103,13 +101,20 @@ partial class Build : NukeBuild
                     .Add("-- RunConfiguration.NoAutoReporters=true"))
                 .When(InvokedTargets.Contains(Cover), _ => _
                     .SetDataCollector("XPlat Code Coverage")
-                        .When(IsServerBuild || Deterministic, _ => _
-                            .SetProcessArgumentConfigurator(a => a
-                                .Add("/p:DeterministicReport=true")))));
+                    .When(IsServerBuild || Deterministic, _ => _
+                        .SetProcessArgumentConfigurator(a => a
+                            .Add("/p:DeterministicReport=true")))));
 
             Debug.Assert(
-                TestResultsDirectory.GlobFiles("**\\*.trx").Count > 0,
+                TestResultsDirectory.GlobFiles("**/*.trx").Count > 0,
                 "No trx files were generated.");
+
+            if (InvokedTargets.Contains(Cover))
+            {
+                Debug.Assert(
+                    TestResultsDirectory.GlobFiles("**/coverage.cobertura.xml").Count > 0,
+                    "No cobertura files generated.");
+            }
         });
 
     Target Cover => _ => _
