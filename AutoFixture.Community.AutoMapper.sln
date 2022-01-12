@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoM
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1F01EA94-AA4F-4D1E-B9E7-47D0061430AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFixture.Community.AutoMapper10.Tests", "tests\AutoFixture.Community.AutoMapper10.Tests\AutoFixture.Community.AutoMapper10.Tests.csproj", "{6A817919-5378-4CE3-B237-4989D5BD72C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{3C33293F-F6C1-4794-B13E-C991A46B3D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C33293F-F6C1-4794-B13E-C991A46B3D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C33293F-F6C1-4794-B13E-C991A46B3D9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A817919-5378-4CE3-B237-4989D5BD72C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A817919-5378-4CE3-B237-4989D5BD72C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A817919-5378-4CE3-B237-4989D5BD72C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A817919-5378-4CE3-B237-4989D5BD72C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +64,7 @@ Global
 		{821E5F93-5AC8-4B72-B218-06031E5324BC} = {1F01EA94-AA4F-4D1E-B9E7-47D0061430AC}
 		{8AF7A561-C7A4-4871-84AE-C41F86ABA0A8} = {1F01EA94-AA4F-4D1E-B9E7-47D0061430AC}
 		{3C33293F-F6C1-4794-B13E-C991A46B3D9E} = {1F01EA94-AA4F-4D1E-B9E7-47D0061430AC}
+		{6A817919-5378-4CE3-B237-4989D5BD72C9} = {1F01EA94-AA4F-4D1E-B9E7-47D0061430AC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F55E1A48-F5F2-401F-9BEF-F15527CE66DD}
