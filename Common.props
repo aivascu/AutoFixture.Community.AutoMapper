@@ -7,7 +7,7 @@
     <Description>A library that integrates AutoFixture with AutoMapper.</Description>
     <PackageTags>AutoFixture;AutoMapper;Unit Testing;Tests</PackageTags>
     <PackageProjectUrl>https://github.com/aivascu/AutoFixture.Community.AutoMapper</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/aivascu/AutoFixture.Community.AutoMapper</RepositoryUrl>
+    <RepositoryUrl>https://github.com/aivascu/AutoFixture.Community.AutoMapper.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
 
     <PackageIcon>icon.png</PackageIcon>
@@ -18,6 +18,9 @@
 
     <!-- Embed source files that are not tracked by the source control manager in the PDB -->
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+    <!-- Set the CheckEolTargetFramework property to false to fix the NETSDK1138 warning -->
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
   </PropertyGroup>
 
   <ItemGroup>

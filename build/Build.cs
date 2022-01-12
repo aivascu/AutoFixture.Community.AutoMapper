@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using Nuke.Common;
 using Nuke.Common.CI;
 using Nuke.Common.Execution;
@@ -31,7 +28,7 @@ partial class Build : NukeBuild
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
     [GitRepository] readonly GitRepository GitRepository;
-    [GitVersion(Framework = "netcoreapp3.0")] readonly GitVersion GitVersion;
+    [GitVersion] readonly GitVersion GitVersion;
 
     [Parameter] readonly bool Deterministic;
 
@@ -44,11 +41,9 @@ partial class Build : NukeBuild
     AbsolutePath TestsDirectory => RootDirectory / "tests";
     AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
     AbsolutePath TestResultsDirectory => ArtifactsDirectory / "testresults";
-    AbsolutePath CoverageDirectory => ArtifactsDirectory / "coverage";
     AbsolutePath ReportsDirectory => ArtifactsDirectory / "reports";
     AbsolutePath PackagesDirectory => ArtifactsDirectory / "packages";
 
-    IEnumerable<Project> TestProjects => Solution.GetProjects("*Tests");
     IReadOnlyCollection<AbsolutePath> Packages => PackagesDirectory.GlobFiles("*.nupkg");
 
     Target Clean => _ => _
@@ -65,7 +60,9 @@ partial class Build : NukeBuild
         .Executes(() =>
         {
             DotNetRestore(s => s
-                .SetProjectFile(Solution));
+                .SetProjectFile(Solution)
+                .SetProcessArgumentConfigurator(a => a
+                    .Add("/p:CheckEolTargetFramework=false")));
         });
 
     Target Compile => _ => _
@@ -80,71 +77,43 @@ partial class Build : NukeBuild
                 .SetInformationalVersion(GitVersion.InformationalVersion)
                 .SetNoRestore(FinishedTargets.Contains(Restore))
                 .SetContinuousIntegrationBuild(IsServerBuild || Deterministic)
-                .SetDeterministic(IsServerBuild || Deterministic));
+                .SetDeterministic(IsServerBuild || Deterministic)
+                .SetProcessArgumentConfigurator(a => a
+                    .Add("/p:CheckEolTargetFramework=false")));
         });
 
     Target Test => _ => _
         .DependsOn(Compile)
         .Produces(TestResultsDirectory / "*.trx")
-        .Produces(CoverageDirectory / "*.xml")
         .Executes(() =>
         {
             DotNetTest(s => s
-                .SetFramework("net461")
-                .SetConfiguration(Configuration)
-                .SetNoBuild(FinishedTargets.Contains(Compile))
-                .ResetVerbosity()
-                .SetLogger("trx")
-                .SetUseSourceLink(IsServerBuild)
-                .SetResultsDirectory(TestResultsDirectory)
-                .SetProcessArgumentConfigurator(a => a
-                    .Add("-- RunConfiguration.DisableAppDomain=true")
-                    .Add("-- RunConfiguration.NoAutoReporters=true"))
-                .When(InvokedTargets.Contains(Cover), _ => _
-                    .EnableCollectCoverage()
-                    .SetCoverletOutputFormat(CoverletOutputFormat.cobertura)
-                    .When(IsServerBuild || Deterministic, _ => _
-                            .SetProcessArgumentConfigurator(a => a
-                                .Add("/p:DeterministicReport=true"))))
-                .CombineWith(TestProjects, (_, v) => _
-                    .SetProjectFile(v)
-                    .When(InvokedTargets.Contains(Cover), _ => _
-                        .SetCoverletOutput(CoverageDirectory / $"{v.Name}.xml"))));
-
-            DotNetTest(s => s
-                .SetFramework("net5.0")
+                .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
                 .SetNoBuild(FinishedTargets.Contains(Compile))
                 .ResetVerbosity()
                 .SetResultsDirectory(TestResultsDirectory)
-                .SetLogger("trx")
+                .SetLoggers("trx")
                 .SetUseSourceLink(IsServerBuild)
                 .SetProcessArgumentConfigurator(a => a
+                    .Add("/p:CheckEolTargetFramework=false")
                     .Add("-- RunConfiguration.DisableAppDomain=true")
                     .Add("-- RunConfiguration.NoAutoReporters=true"))
                 .When(InvokedTargets.Contains(Cover), _ => _
                     .SetDataCollector("XPlat Code Coverage")
-                        .When(IsServerBuild || Deterministic, _ => _
-                            .SetProcessArgumentConfigurator(a => a
-                                .Add("/p:DeterministicReport=true"))))
-                .CombineWith(TestProjects, (_, p) => _
-                    .SetProjectFile(p)
-                    .When(InvokedTargets.Contains(Cover), _ => _
-                        .SetResultsDirectory(TestResultsDirectory / $"{p.Name}.{_.Framework}"))));
+                    .When(IsServerBuild || Deterministic, _ => _
+                        .SetProcessArgumentConfigurator(a => a
+                            .Add("/p:DeterministicReport=true")))));
 
             Debug.Assert(
-                TestResultsDirectory.GlobFiles("**\\*.trx").Count > 0,
+                TestResultsDirectory.GlobFiles("**/*.trx").Count > 0,
                 "No trx files were generated.");
-
-            TestResultsDirectory.GlobFiles("**\\*.xml")
-                .Where(x => Guid.TryParse(x.GetParentDirectoryName(), out var _))
-                .ForEach(x => File.Copy(x, CoverageDirectory / $"{x.Parent.GetParentDirectoryName()}.xml", true));
 
             if (InvokedTargets.Contains(Cover))
             {
                 Debug.Assert(
-                    CoverageDirectory.GlobFiles("**\\*.xml").Count > 0,
-                    "No xml coverage files were generated.");
+                    TestResultsDirectory.GlobFiles("**/coverage.cobertura.xml").Count > 0,
+                    "No cobertura files generated.");
             }
         });
 
@@ -156,7 +125,7 @@ partial class Build : NukeBuild
         {
             ReportGenerator(_ => _
                 .SetFramework("net5.0")
-                .SetReports(CoverageDirectory / "*.xml")
+                .SetReports(TestResultsDirectory / "**" / "coverage.cobertura.xml")
                 .SetTargetDirectory(ReportsDirectory)
                 .SetReportTypes("lcov", ReportTypes.HtmlInline));
         });

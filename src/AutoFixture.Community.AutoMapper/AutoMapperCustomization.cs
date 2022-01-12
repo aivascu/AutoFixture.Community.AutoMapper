@@ -1,7 +1,10 @@
 ﻿using System;
 using AutoFixture.Kernel;
 using AutoMapper;
+
+#if !(NETSTANDARD2_1_OR_GREATER)
 using AutoMapper.Configuration;
+#endif
 
 namespace AutoFixture.Community.AutoMapper
 {
