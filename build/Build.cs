@@ -28,7 +28,7 @@ partial class Build : NukeBuild
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
     [GitRepository] readonly GitRepository GitRepository;
-    [GitVersion(Framework = "netcoreapp3.0")] readonly GitVersion GitVersion;
+    [GitVersion] readonly GitVersion GitVersion;
 
     [Parameter] readonly bool Deterministic;
 
@@ -95,7 +95,7 @@ partial class Build : NukeBuild
                 .SetNoBuild(FinishedTargets.Contains(Compile))
                 .ResetVerbosity()
                 .SetResultsDirectory(TestResultsDirectory)
-                .SetLogger("trx")
+                .SetLoggers("trx")
                 .SetUseSourceLink(IsServerBuild)
                 .SetProcessArgumentConfigurator(a => a
                     .Add("/p:CheckEolTargetFramework=false")
