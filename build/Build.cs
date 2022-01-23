@@ -21,6 +21,13 @@ using static Nuke.Common.Tools.ReportGenerator.ReportGeneratorTasks;
 [ShutdownDotNetAfterServerBuild]
 partial class Build : NukeBuild
 {
+    /// Support plugins are available for:
+    /// - JetBrains ReSharper        https://nuke.build/resharper
+    /// - JetBrains Rider            https://nuke.build/rider
+    /// - Microsoft VisualStudio     https://nuke.build/visualstudio
+    /// - Microsoft VSCode           https://nuke.build/vscode
+    public static int Main() => Execute<Build>(x => x.Compile);
+
     const string MasterBranch = "master";
     const string DevelopBranch = "develop";
 
@@ -166,11 +173,4 @@ partial class Build : NukeBuild
                 .CombineWith(Packages, (_, file) => _
                     .SetTargetPath(file)));
         });
-
-    /// Support plugins are available for:
-    /// - JetBrains ReSharper        https://nuke.build/resharper
-    /// - JetBrains Rider            https://nuke.build/rider
-    /// - Microsoft VisualStudio     https://nuke.build/visualstudio
-    /// - Microsoft VSCode           https://nuke.build/vscode
-    public static int Main() => Execute<Build>(x => x.Compile);
 }
