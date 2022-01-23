@@ -1,8 +1,8 @@
 blank_issues_enabled: true
 contact_links:
-  - name: New Feature
+  - name: New Idea
     url: https://github.com/aivascu/AutoFixture.Community.AutoMapper/discussions/categories/ideas
-    about: Propose and discuss ideas and features
+    about: Propose and discuss ideas and proposals
   - name: Question
     url: https://github.com/aivascu/AutoFixture.Community.AutoMapper/discussions/categories/q-a
     about: Ask a questions or seek help
