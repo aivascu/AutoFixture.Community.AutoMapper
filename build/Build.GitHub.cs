@@ -5,23 +5,26 @@ using Nuke.Common.CI.GitHubActions;
 [GitHubActions(
     "continuous",
     GitHubActionsImage.WindowsLatest,
-    OnPullRequestBranches = new[] { MasterBranch, DevelopBranch },
-    OnPushBranches = new [] { MasterBranch },
+    AutoGenerate = false,
+    OnPullRequestBranches = new[] { MasterBranch, ReleaseBranch },
+    OnPushBranches = new[] { MasterBranch, ReleaseBranch },
     PublishArtifacts = false,
     InvokedTargets = new[] { nameof(Cover), nameof(Pack) },
-    ImportGitHubTokenAs = nameof(GitHubToken))]
+    ImportGitHubTokenAs = nameof(GitHubToken),
+    OnPushExcludePaths = new[] { "**/*.md", "**/*.yml", "**/*.yaml", "**/*.png" },
+    OnPullRequestExcludePaths = new[] { "**/*.md", "**/*.yml", "**/*.yaml", "**/*.png" })]
 [GitHubActions(
     "release",
     GitHubActionsImage.WindowsLatest,
+    AutoGenerate = false,
     OnPushTags = new[] { "v*" },
     PublishArtifacts = true,
     InvokedTargets = new[] { nameof(Cover), nameof(Publish) },
     ImportGitHubTokenAs = nameof(GitHubToken),
-    ImportSecrets = new[] {nameof(NuGetApiKey)})]
+    ImportSecrets = new[] { nameof(NuGetApiKey) })]
 partial class Build
 {
     [CI] readonly GitHubActions GitHubActions;
 
-    [Parameter("GitHub auth token", Name = "github-token"), Secret]
-    readonly string GitHubToken;
+    [Parameter("GitHub auth token", Name = "github-token"), Secret] readonly string GitHubToken;
 }
