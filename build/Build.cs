@@ -32,17 +32,21 @@ partial class Build : NukeBuild
     const string ReleaseBranch = "release/*";
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
-    readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
+    readonly Configuration Configuration = IsLocalBuild
+        ? Configuration.Debug
+        : Configuration.Release;
 
     [GitRepository] readonly GitRepository GitRepository;
     [GitVersion] readonly GitVersion GitVersion;
 
-    [Parameter] readonly bool Deterministic;
+    [Parameter("Makes the build generate deterministic assemblies")] readonly bool Deterministic;
 
-    [Parameter, Secret] readonly string NuGetApiKey;
-    [Parameter] readonly string NuGetSource = "https://api.nuget.org/v3/index.json";
+    [Parameter("The NuGet API key"), Secret] readonly string NuGetApiKey;
+    [Parameter("The NuGet source")] readonly string NuGetSource = "https://api.nuget.org/v3/index.json";
 
     [Solution] readonly Solution Solution;
+
+    bool IsDeterministic => IsServerBuild || Deterministic;
 
     AbsolutePath SourceDirectory => RootDirectory / "src";
     AbsolutePath TestsDirectory => RootDirectory / "tests";
@@ -83,8 +87,8 @@ partial class Build : NukeBuild
                 .SetFileVersion(GitVersion.AssemblySemFileVer)
                 .SetInformationalVersion(GitVersion.InformationalVersion)
                 .SetNoRestore(FinishedTargets.Contains(Restore))
-                .SetContinuousIntegrationBuild(IsServerBuild || Deterministic)
-                .SetDeterministic(IsServerBuild || Deterministic)
+                .SetContinuousIntegrationBuild(IsDeterministic)
+                .SetDeterministic(IsDeterministic)
                 .SetProcessArgumentConfigurator(a => a
                     .Add("/p:CheckEolTargetFramework=false")));
         });
@@ -108,7 +112,7 @@ partial class Build : NukeBuild
                     .Add("-- RunConfiguration.NoAutoReporters=true"))
                 .When(InvokedTargets.Contains(Cover), _ => _
                     .SetDataCollector("XPlat Code Coverage")
-                    .When(IsServerBuild || Deterministic, _ => _
+                    .When(IsDeterministic, _ => _
                         .SetProcessArgumentConfigurator(a => a
                             .Add("/p:DeterministicReport=true")))));
 
@@ -163,6 +167,7 @@ partial class Build : NukeBuild
         .Consumes(Pack)
         .OnlyWhenDynamic(() => IsServerBuild)
         .OnlyWhenDynamic(() => !NuGetApiKey.IsNullOrEmpty())
+        .OnlyWhenDynamic(() => GitRepository.IsOnMasterBranch() || GitRepository.IsOnReleaseBranch())
         .Requires(() => Configuration.Equals(Configuration.Release))
         .Executes(() =>
         {

@@ -19,7 +19,8 @@
           "description": "Indicates to continue a previously failed build attempt"
         },
         "Deterministic": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Makes the build generate deterministic assemblies"
         },
         "github-token": {
           "type": "string",
@@ -56,10 +57,12 @@
         },
         "NuGetApiKey": {
           "type": "string",
+          "description": "The NuGet API key",
           "default": "Secrets must be entered via 'nuke :secret [profile]'"
         },
         "NuGetSource": {
-          "type": "string"
+          "type": "string",
+          "description": "The NuGet source"
         },
         "Partition": {
           "type": "string",
