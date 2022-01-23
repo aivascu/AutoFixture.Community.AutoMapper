@@ -1,11 +1,11 @@
 blank_issues_enabled: true
 contact_links:
-  - name: New Idea
+  - name: 💡 New Idea
     url: https://github.com/aivascu/AutoFixture.Community.AutoMapper/discussions/categories/ideas
     about: Propose and discuss ideas and proposals
-  - name: Question
+  - name: 🤔 Question
     url: https://github.com/aivascu/AutoFixture.Community.AutoMapper/discussions/categories/q-a
     about: Ask a questions or seek help
-  - name: Show and Tell
+  - name: 📈 Show and Tell
     url: https://github.com/aivascu/AutoFixture.Community.AutoMapper/discussions/categories/show-and-tell
     about: Share something cool (e.g. snippets, success stories, etc.)
