@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{98C85C66-E6E3-4728-BBAE-E74C5D481AD1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C8389F20-83DE-4160-8447-9DE9418D6E96}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sln", ".sln", "{C8389F20-83DE-4160-8447-9DE9418D6E96}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
@@ -27,6 +27,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1F01EA94-AA4F-4D1E-B9E7-47D0061430AC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFixture.Community.AutoMapper10.Tests", "tests\AutoFixture.Community.AutoMapper10.Tests\AutoFixture.Community.AutoMapper10.Tests.csproj", "{6A817919-5378-4CE3-B237-4989D5BD72C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFixture.Community.AutoMapper11.Tests", "tests\AutoFixture.Community.AutoMapper11.Tests\AutoFixture.Community.AutoMapper11.Tests.csproj", "{D1501A59-DE35-48D4-BE81-738410BB275D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,6 +58,10 @@ Global
 		{6A817919-5378-4CE3-B237-4989D5BD72C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A817919-5378-4CE3-B237-4989D5BD72C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A817919-5378-4CE3-B237-4989D5BD72C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1501A59-DE35-48D4-BE81-738410BB275D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1501A59-DE35-48D4-BE81-738410BB275D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1501A59-DE35-48D4-BE81-738410BB275D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1501A59-DE35-48D4-BE81-738410BB275D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +71,8 @@ Global
 		{8AF7A561-C7A4-4871-84AE-C41F86ABA0A8} = {1F01EA94-AA4F-4D1E-B9E7-47D0061430AC}
 		{3C33293F-F6C1-4794-B13E-C991A46B3D9E} = {1F01EA94-AA4F-4D1E-B9E7-47D0061430AC}
 		{6A817919-5378-4CE3-B237-4989D5BD72C9} = {1F01EA94-AA4F-4D1E-B9E7-47D0061430AC}
+		{D1501A59-DE35-48D4-BE81-738410BB275D} = {1F01EA94-AA4F-4D1E-B9E7-47D0061430AC}
+		{98C85C66-E6E3-4728-BBAE-E74C5D481AD1} = {C8389F20-83DE-4160-8447-9DE9418D6E96}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F55E1A48-F5F2-401F-9BEF-F15527CE66DD}
