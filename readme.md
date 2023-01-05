@@ -1,6 +1,6 @@
 # AutoFixture.Community.AutoMapper
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/aivascu/AutoFixture.Community.AutoMapper/release?logo=github&style=flat-square)](https://github.com/aivascu/AutoFixture.Community.AutoMapper/actions/workflows/release.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/aivascu/AutoFixture.Community.AutoMapper/release.yml?logo=github&style=flat-square)](https://github.com/aivascu/AutoFixture.Community.AutoMapper/actions/workflows/release.yml)
 [![GitHub](https://img.shields.io/github/license/aivascu/AutoFixture.Community.AutoMapper?style=flat-square)](https://licenses.nuget.org/MIT)
 [![Nuget](https://img.shields.io/nuget/v/AutoFixture.Community.AutoMapper?logo=nuget&style=flat-square)](https://www.nuget.org/packages/AutoFixture.Community.AutoMapper/)
 
