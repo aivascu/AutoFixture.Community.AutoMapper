@@ -2,10 +2,10 @@ using AutoFixture.Kernel;
 
 namespace AutoFixture.Community.AutoMapper
 {
-    internal class ImplementationRelay<TService, TImplementation> : TypeRelay
+    internal class TypeRelay<TService, TImplementation> : TypeRelay
         where TImplementation : TService
     {
-        public ImplementationRelay()
+        public TypeRelay()
             : base(typeof(TService), typeof(TImplementation))
         {
         }
